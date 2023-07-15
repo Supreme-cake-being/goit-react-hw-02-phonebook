@@ -6,11 +6,14 @@ import { List } from './Contacts.styled';
 import { Contact } from '../Contact/Contact';
 
 class Contacts extends Component {
+  filterId = nanoid();
+
   static defaultProps = {
     contacts: [],
   };
 
   static propTypes = {
+    handleClick: PropTypes.func.isRequired,
     contacts: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -20,18 +23,24 @@ class Contacts extends Component {
   };
 
   render() {
-    const { contacts } = this.props;
+    const { contacts, handleClick } = this.props;
     return (
-      <List>
-        <h1>Contacts</h1>
-        {contacts.map(contact => (
-          <Contact
-            key={nanoid()}
-            name={contact.name}
-            number={contact.number}
-          ></Contact>
-        ))}
-      </List>
+      <>
+        <List>
+          {contacts.length !== 0 ? (
+            contacts.map(({ id, name, number }) => (
+              <Contact
+                key={id}
+                name={name}
+                number={number}
+                onClick={handleClick}
+              ></Contact>
+            ))
+          ) : (
+            <p>There are no contacts :(</p>
+          )}
+        </List>
+      </>
     );
   }
 }

@@ -8,15 +8,31 @@ class Form extends Component {
   numberId = nanoid();
 
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
 
+  state = {
+    name: '',
+    number: '',
+  };
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const { name, number } = this.state;
+    e.target.reset();
+
+    this.props.onSubmit({ id: nanoid(), name, number });
+  };
+
   render() {
-    const { props, nameId, numberId } = this;
-    const { onChange, onSubmit } = props;
+    const { props, nameId, numberId, handleSubmit, handleChange } = this;
     return (
-      <FormBox onSubmit={onSubmit}>
+      <FormBox onSubmit={handleSubmit} autoComplete="off">
         <Label htmlFor={nameId}>Name</Label>
         <Input
           type="text"
@@ -25,7 +41,7 @@ class Form extends Component {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           id={nameId}
-          onChange={onChange}
+          onChange={handleChange}
         />
 
         <Label htmlFor={numberId}>Number</Label>
@@ -36,7 +52,7 @@ class Form extends Component {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           id={numberId}
-          onChange={onChange}
+          onChange={handleChange}
         />
 
         <Button type="submit">Add contact</Button>

@@ -1,10 +1,13 @@
-import { Item } from './Contact.styled';
+import { Item, Button } from './Contact.styled';
 
-export const Contact = ({ name, number }) => {
+export const Contact = ({ name, number, onClick }) => {
   return (
     <Item>
       <p>{name}</p>
       <p>{number}</p>
+      <Button type="button" onClick={onClick} data-number={number}>
+        Delete
+      </Button>
     </Item>
   );
 };
