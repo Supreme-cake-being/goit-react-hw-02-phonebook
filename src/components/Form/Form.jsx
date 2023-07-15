@@ -30,7 +30,7 @@ class Form extends Component {
   };
 
   render() {
-    const { props, nameId, numberId, handleSubmit, handleChange } = this;
+    const { nameId, numberId, handleSubmit, handleChange } = this;
     return (
       <FormBox onSubmit={handleSubmit} autoComplete="off">
         <Label htmlFor={nameId}>Name</Label>
