@@ -24,18 +24,14 @@ class App extends Component {
       ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
     );
 
-    if (isInContacts) alert(`${contact.name} is already in contacts`);
+    if (isInContacts) return alert(`${contact.name} is already in contacts`);
 
     this.setState({ contacts: [...contacts, contact] });
   };
 
-  deleteContact = e => {
-    const numberToDelete = e.target.getAttribute('data-number');
-
+  deleteContact = id => {
     this.setState({
-      contacts: this.state.contacts.filter(
-        ({ number }) => number !== numberToDelete
-      ),
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
     });
   };
 
@@ -56,7 +52,7 @@ class App extends Component {
         <Form onSubmit={this.addContact} />
 
         <Subtitle>Contacts</Subtitle>
-        <Filter onFilter={this.handleFilter}></Filter>
+        <Filter filterValue={filter} onFilter={this.handleFilter}></Filter>
         <Contacts
           contacts={filteredContacts}
           handleClick={this.deleteContact}

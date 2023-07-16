@@ -5,7 +5,7 @@ export const Contact = ({ name, number, onClick }) => {
     <Item>
       <p>{name}</p>
       <p>{number}</p>
-      <Button type="button" onClick={onClick} data-number={number}>
+      <Button type="button" onClick={onClick}>
         Delete
       </Button>
     </Item>
